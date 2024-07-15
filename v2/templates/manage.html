@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content />
+    <meta name="author" content />
+    <title>SAMMS - Manage</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}"
+      rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  </head>
+
+  <body id="page-top">
+    <div id="wrapper">
+      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        id="accordionSidebar"
+        data-aos="fade-right">
+        <a
+          class="sidebar-brand d-flex align-items-center justify-content-center"
+          href="{{url_for('home')}}">
+          <div class="sidebar-brand-text mx-3">SAMMS</div>
+        </a>
+        <hr class="sidebar-divider my-0" />
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('home')}}">
+            <i class="fas fa-fw fa-home"></i>
+            <span>Home</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('attendance')}}">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Attendance</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link collapsed" href="{{url_for('manage')}}">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Manage</span>
+          </a>
+        </li>
+        <div class="text-center d-none d-md-inline">
+          <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+      </ul>
+      <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+          <!-- nav -->
+          <nav aria-label="breadcrumb" data-aos="fade-down">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="{{url_for('home')}}">SAMMS</a>
+              </li>
+              <li class="breadcrumb-item" aria-current="page">Manage</li>
+              <li class="breadcrumb-item active" aria-current="page">
+                stduents
+              </li>
+            </ol>
+          </nav>
+          <div class="container-fluid">
+
+            <div class="row">
+              <div class="col-xl-12 col-md-12" data-aos="fade-right">
+                <!-- content -->
+                <div class="d-sm-flex align-items-center mb-4">
+                  <h1 class="h3 mb-0 text-gray-800">Manage</h1>
+                </div>
+                <div class="mb-4">
+                  <a href="{{url_for('manage')}}"><button type="button"
+                      class="btn btn-outline-primary active">students</button></a>
+                  <a href="{{url_for('manage_teachers')}}"><button type="button"
+                      class="btn btn-outline-primary">faculty</button></a>
+                  <a href="{{url_for('manage_subjects')}}"><button type="button"
+                      class="btn btn-outline-primary">subjects</button></a>
+                </div>
+                <div class="card shadow mb-4" data-aos="fade-up">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                      students
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="dataTable"
+                        width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th>Student ID</th>
+                            <th>First Name</th>
+                            <th>Middle Initial</th>
+                            <th>Last Name</th>
+                            <th>Gender</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for student in students %}
+                          <tr>
+                            <td>
+                              {{ student[0]}}
+                              <input id="id{{student[0]}}" name="id"
+                                type="hidden" value="{{ student[0]}}" />
+                            </td>
+                            <td>
+                              {{ student[1]}}
+                              <input id="id{{ student[0]}}" type="hidden"
+                                value="{{ student[1]}}" />
+                            </td>
+                            <td>
+                              {{ student[2]}}
+                              <input id="id{{ student[0]}}" type="hidden"
+                                value="{{ student[2]}}" />
+                            </td>
+                            <td>
+                              {{ student[3]}}
+                              <input id="id{{ student[0]}}" type="hidden"
+                                value="{{ student[3]}}" />
+                            </td>
+                            <td>{{ student[4] }}</td>
+                            <input id="id{{student[0]}}" type="hidden"
+                              value="{{ student[4]}}" />
+
+                            <td>
+                              <button class="btn btn-primary"
+                                onclick="edit('id{{student[0]}}')">
+                                Options
+                              </button>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="card shadow mb-4 addstu" data-aos="fade-">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                      Manage Student/s
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <form action="/manage/update_and_insert" method="post"
+                      accept-charset="utf-8">
+                      <div class="form-group">
+                        <label for="student_id">Student ID</label>
+                        <input type="text" class="form-control" id="student_id"
+                          name="student_id" required />
+                      </div>
+                      <div class="form-group">
+                        <label for="name">First name</label>
+                        <input type="text" class="form-control" id="fname"
+                          name="fname" required />
+                      </div>
+                      <div class="form-group">
+                        <label for="name">Middle name</label>
+                        <input type="text" class="form-control" id="mname"
+                          name="mname" required />
+                      </div>
+                      <div class="form-group">
+                        <label for="name">Last name</label>
+                        <input type="text" class="form-control" id="lname"
+                          name="lname" required />
+                      </div>
+                    
+                    <div class="form-group">
+                      <label for="gender">Gender</label>
+                      <select class="form-control" id="gender" name="gender"
+                        required>
+                        <option value>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                      <input type="hidden" id="isedit" name="isedit" />
+                    </div>
+                    <div class="form-group">
+
+                      <button type="submit" class="btn btn-outline-primary">
+                        add/update Student
+                      </button>
+                      <input type="hidden" name="operation" id="operation">
+                      <button type class="btn btn-outline-danger"
+                        onclick="document.getElementById('operation').value='delete';alert(document.getElementById('operation').value)">
+                        delete Student
+                      </button>
+                    </div>
+                    </div>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+              <div class="copyright text-center my-auto">
+                <span>Copyright &copy; attendance monitoring management system
+                  2024</span>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+      </a>
+      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Ready to Leave?
+              </h5>
+              <button class="close" type="button" data-dismiss="modal"
+                aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Select "Logout" below if you are ready to end your current
+              session.
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" type="button"
+                data-dismiss="modal">
+                Cancel
+              </button>
+              <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script
+      src="{{ url_for('static', filename='js/sb-admin-2.min.js') }}"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+    AOS.init();
+    function edit(id) {
+      document
+        .querySelector(".addstu")
+        .scrollIntoView({ behavior: "smooth", block: "start" });
+      const elements = document.querySelectorAll(`#${id}`);
+      document.getElementById("student_id").value = elements[0].value;
+      document.getElementById("fname").value = elements[1].value;
+      document.getElementById("mname").value = elements[2].value;
+      document.getElementById("lname").value = elements[3].value;
+      document.getElementById("gender").value = elements[4].value;
+      document.getElementById("isedit").value = "True";
+    }
+
+  </script>
+  </body>
+
+</html>

@@ -1,0 +1,13 @@
+{
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "extensions.experimental.deferredStartupFinishedActivation": true,
+    "liveServer.settings.useWebExt": true,
+    "prettier.resolveGlobalModules": true,
+    "remote.autoForwardPorts": false,
+    "files.autoSave": "onWindowChange",
+    "python.createEnvironment.contentButton": "show",
+    "python.languageServer": "Pylance",
+    "python.terminal.activateEnvInCurrentTerminal": true
+}
