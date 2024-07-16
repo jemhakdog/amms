@@ -16,4 +16,5 @@ Student(app)
 @app.route("/")
 def login_faculty():
     yield "hahahss"
-app.run(debug=True)
+
+
