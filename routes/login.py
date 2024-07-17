@@ -47,10 +47,4 @@ def Login(app):
 				return render_template('login.html', error='Invalid ID or Password')
 		return render_template('login.html')
 	
-	@app.route("/login/faculty")
-	def faculty_login():
-		return render_template("faculty/index.html")
-
-	@app.route("/login/admin")
-	def admin_login():
-		return render_template("admin/index.html")
+	
