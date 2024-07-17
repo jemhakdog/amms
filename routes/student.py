@@ -117,5 +117,6 @@ def Student(app):
 			subjects = db.retrieve_table('subject')
 			name =db.retrieve_table('students') 
 			qname=[list(i[1:4]) for i in name if i[0]==int(student_id) ][0]
-			name=" ".join(qname)
-			return render_template("student/profile.html",name=name)
+			info=[list(i) for i in name if i[0]==int(student_id) ][0]
+			name=" ".join(qname)    
+			return render_template("student/profile.html",info=info,subjects=subjects)
